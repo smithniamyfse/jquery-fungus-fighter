@@ -171,6 +171,8 @@ function render() {
 
     if (playerAP <= 0) {
         $('.attack-btn').attr('disabled', playerAP <= 0);
+        $('.freaky-fungus.walk').removeClass('walk').addClass('jump');
+        // $( "div.second" ).replaceWith( "<h2>New heading</h2>" );
     }
 
     $('#ap-text-amount').text(Math.max(playerAP, 0));
