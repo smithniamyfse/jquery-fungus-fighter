@@ -169,17 +169,20 @@ function resetNegativeNumber() {
 
 function render() {
 
-    if (playerAP <= 0) {
-        $('.attack-btn').attr('disabled', playerAP <= 0);
-        $('.freaky-fungus.walk').removeClass('walk').addClass('jump');
-        // $( "div.second" ).replaceWith( "<h2>New heading</h2>" );
-    }
-
     $('#ap-text-amount').text(Math.max(playerAP, 0));
     $('#ap-meter').val(Math.max(playerAP, 0));
     
     $('#hp-text-amount').text(Math.max(fungusHP, 0));
     $('#hp-meter').val(Math.max(fungusHP, 0));
 
+    if (fungusHP <= 0) {
+        $('.freaky-fungus.walk').removeClass('walk').addClass('dead');
+    }
 
-} //*end render
+    if (playerAP <= 0) {
+        $('.attack-btn').attr('disabled', playerAP <= 0);
+        $('.freaky-fungus.walk').removeClass('walk').addClass('jump');
+    }
+
+
+} // *end render
