@@ -54,12 +54,6 @@ $(document).ready(onReady);
 let playerAP = 100;
 let fungusHP = 100;
 
-const attacks = [
-    {attackName: "Arcane Scepter", apCost: 12, hpDamage: 14},
-    {attackName: "Entangle", apCost: 23, hpDamage: 9},
-    {attackName: "Dragon Blade", apCost: 38, hpDamage: 47},
-    {attackName: "Star Fire", apCost: 33, hpDamage: 25}
-];
 
 // State Variables can be declared outside of the onReady
 // Feel free to make this to what you want!
@@ -67,7 +61,7 @@ const attacks = [
 // let fungusHP = 100;
 
 function onReady() {
-    console.log('check if jQuery ready: ');
+    console.log('check if jQuery ready: 🚀');
     // Set up EVENT LISTENERS - 
         // 'Hey jQuery! Listen for clicks on this target and if triggered, call this function.'
     // Make sure you check the index.html file! 
@@ -77,11 +71,12 @@ function onReady() {
         // i. Arcane Scepter
         $('.attack-btn.arcane-scepter').on('click', arcaneScepterAttack);
         // ii. Entangle
+        $('.attack-btn.entangle').on('click', entangleAttack);
         // iii. Dragon Blade
+        $('.attack-btn.dragon-blade').on('click', dragonBladeAttack);
         // iv. Star Fire
+        $('.attack-btn.star-fire').on('click', starFireAttack);
 
-
-    
     // 🧠 Remember
     // - Handle events that ->
     // - Updates state which is ->
@@ -92,30 +87,97 @@ function onReady() {
 
 function arcaneScepterAttack() {
     // Update your state variable(s)
-    if(playerAP && fungusHP) {
-        playerAP -= 12;
-        fungusHP -= 14; 
-    }
-    console.log('The amount of playerAP left: ', playerAP);
+    playerAP -= 12;
+    fungusHP -= 14; 
 
-    console.log('The amount of fungusHP left: ', fungusHP);
+    // Test arcaneScepterAttack
+    console.log('The amount of playerAP left after arcaneScepterAttack: ', playerAP);
+    console.log('The amount of fungusHP left after arcaneScepterAttack: ', fungusHP);
 
+        // Render your updated state
+        // Call the render function to take the state data and convert it visually 
+        render();
+
+} // *end arcaneScepterAttack
+
+
+
+function entangleAttack() {
+    // Update your state variable(s)
+        playerAP -= 23; 
+        fungusHP -= 9;
+
+        // Test entangleAttack
+        console.log('The amount of playerAP left after entangleAttack', playerAP);
+        console.log('The amount of fungusHP left after entangleAttack', fungusHP);
 
     // Render your updated state
-        // Call the render function to take the state data and convert it visually 
+    // Call the render function to take the state data and convert it visually 
     render();
 
-} //*end attackFungus
+} //*end entangleAttack
+
+
+
+function dragonBladeAttack() {
+    // Update your state variable(s)
+    playerAP -= 38;
+    fungusHP -= 47;
+
+    // Test dragonBladeAttack
+    console.log('The amount of playerAP left after dragonBladeAttack', playerAP);
+    console.log('The amount of fungusHP left after dragonBladeAttack', fungusHP);
+
+    // Render your updated state
+    // Call the render function to take the state data and convert it visually 
+    render();
+
+} // *end dragonBladeAttack
+
+
+
+function starFireAttack() {
+    // Update your state variable(s)
+    playerAP -= 33;
+    fungusHP -= 25;
+
+    // Test starFireAttack
+    console.log('The amount of playerAP left after starFireAttack', playerAP);
+    console.log('The amount of fungusHP left after starFireAttack', fungusHP);
+
+    // Render your updated state
+    // Call the render function to take the state data and convert it visually
+    render();
+
+} // *end starFireAttack
+
+
+
+function resetNegativeNumber() {
+    if (playerAP < 0) {
+        playerAP = 0;
+    }
+    if (fungusHP < 0) {
+        fungusHP = 0;
+    }
+} // *end resetNegativeNumber
 
 
 // ** PART 2: RENDER STATE CHANGES TO THE DOM
     // Updating the DOM. 
         // Take raw (state) data and convert it to something users can see. 
+
 function render() {
-    $('#ap-text-amount').text(playerAP);
-    $('#ap-meter').val(playerAP);
-    $('#hp-text-amount').text(fungusHP);
-    $('#hp-meter').val(fungusHP);
+
+    if (playerAP <= 0) {
+        $('.attack-btn').attr('disabled', playerAP <= 0);
+    }
+
+    $('#ap-text-amount').text(Math.max(playerAP, 0));
+    $('#ap-meter').val(Math.max(playerAP, 0));
+    
+    $('#hp-text-amount').text(Math.max(fungusHP, 0));
+    $('#hp-meter').val(Math.max(fungusHP, 0));
 
 
 } //*end render
